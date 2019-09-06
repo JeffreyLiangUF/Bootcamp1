@@ -32,7 +32,8 @@ var requestHandler = function(request, response) {
    }
    else //not sent to /listings path
    {
-     response.sendStatus(404);
+     response.writeHead(404, {'content-type': 'text/html'});
+     response.write('Bad gateway error');
      response.end();
    }
 };
@@ -56,7 +57,7 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
 
   //Creates the server
     var server = http.createServer(requestHandler);
-    
+
   //Start the server
     server.listen(port, function() {
       console.log('Server listening on: http://127.0.0.1:' + port);
